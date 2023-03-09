@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import messageController from './controller/messageController.js';
+import tokenController from './controller/tokenController.js';
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.use('/message', messageController);
-
+app.use('/token', tokenController);
 app.listen(4000, '0.0.0.0', () => {
   console.log('server listening on http://0.0.0.0:4000');
 });

@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 
+import validateToken from '../middlewares/validateToken.js';
+
 const router = Router();
 const prisma = new PrismaClient();
 
@@ -21,6 +23,12 @@ router.post('/', async (req, res) => {
   });
 
   res.sendStatus(200);
+});
+
+router.get('/', [validateToken], async (req, res) => {
+  const messagges = await prisma.message.findMany();
+
+  res.json(messagges);
 });
 
 export default router;
